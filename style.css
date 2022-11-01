@@ -1,0 +1,445 @@
+
+:root{
+    --p:#C4C4C4;
+    --backPop:#1C043C;
+    --backBtn: #4D2CCD;
+    --backBtnExit:#E81123;
+    --backToggle: #30106C;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body{
+    background-image: url(./img/backG.png);
+    background-repeat: no-repeat;
+    padding: 30px;
+
+    /* display: grid; */
+
+    /* grid-template-rows: 1fr 90%; */
+
+    display: flex;
+    justify-content: center;
+
+    height: 100vh;
+}
+
+p{
+    color: var(--p);
+}
+
+/* --------------------------------------------------------------- */
+
+.miniP{
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+
+    background-image: url(./img/gohan.jpeg);
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+.titleP{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+
+/* --------------------------------------------------------------- */
+
+.btnCreator{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+
+    background-color: var(--backPop);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    /* top: 50%; */
+    bottom: 30px;
+    right: 50%;
+    /* left: auto; */
+
+    cursor: pointer;
+
+    transition: all .2s ease-in-out;
+
+}
+.btnCreator:hover{
+    transform: scale(1.2);
+}
+
+/* --------------------------------------------------------------- */
+
+.containerBooks{
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); */
+    grid-template-columns: repeat(5,200px);
+    gap: 30px;
+    /* width: 60vw; */
+    place-content: center;
+   
+    /* position: absolute;
+    width: 100vw;
+    height: 100vh; */
+    /* top: 20%; */
+
+    /* right: 22%; */
+    /* left: 50%; */
+}
+
+.book{
+    width: 200px;
+    height: 300px;
+
+    background-image: url(./coverMONTE.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* border-radius: 15px; */
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-end; */
+    justify-content: space-between;
+    padding: 5px;
+
+    box-shadow: inset 0px -50px 20px 0px rgba(0, 0, 0, 0.6);
+    transition: all .2s ease-in-out;
+}
+
+.book > .containerPS{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.book > .pTitle{
+    text-align: center;
+}
+
+.book > .containerPS > .pagesNum{
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: var(--backBtn);
+}
+
+.book > .containerPS > .editBook{
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+    
+}
+
+.book > .containerPS > .editBook > svg > .pathSvg{
+    stroke: transparent;
+    transition: all .2s ease-in-out;
+}
+
+.book:hover{
+    box-shadow: inset 0px -300px 20px 0px rgba(0, 0, 0, 0.6);
+}
+
+.book:hover > .containerPS > .editBook > svg > .pathSvg{
+    stroke: white;
+}
+
+/* --------------------------------------------------------------- */
+
+.popUpCreateBook{
+    background-color: var(--backPop);
+
+    position: absolute;
+    padding: 30px;
+    top: 35%;
+    /* left: 50%; */
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    color: #C4C4C4;
+    border-radius: 5px;
+}
+
+.popUpCreateBook > label > input{
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px #fff;
+    color: var(--p);
+    
+    width: 230px;
+    font-size: 15px;
+}
+
+.popUpCreateBook > label > input:focus{
+    outline: none;
+}
+
+.popUpCreateBook > label > input[type='number']{
+    width: 100px;
+}
+
+.btnCreatorPop{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+
+    background-color: var(--backBtn);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    /* top: 90%; */
+    /* bottom: 30px; */
+    right: 0%;
+    left: 41%;
+
+    cursor: pointer;
+
+    transition: all .2s ease-in-out;
+}
+
+.btnCreatorPop:hover{
+    transform: scale(1.1);
+}
+
+.btnExit{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 0 5px 0 0;
+
+    transition: all .2s ease-in-out;
+
+    /* background-color: var(--backBtnExit); */
+}
+
+.btnExit:hover{
+    background-color: var(--backBtnExit);
+    cursor: pointer;
+}
+
+/* --------------------------------------------------------------- */
+
+.popEditBook{
+    background-color: var(--backPop);
+
+    width: 400px;
+
+    position: absolute;
+    padding: 30px;
+    /* top: 10%; */
+    /* left: 50%; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* gap: 30px; */
+
+    color: #C4C4C4;
+    border-radius: 5px;
+}
+
+.btnExitEdit{
+    position: absolute;
+    top: 30px;
+    right: 0px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 0 5px 0 0;
+
+    transition: all .2s ease-in-out;
+
+    /* background-color: var(--backBtnExit); */
+}
+
+.btnExitEdit:hover{
+    background-color: var(--backBtnExit);
+    cursor: pointer;
+}
+
+
+.popEditBook > .containerForm > label > input{
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px #fff;
+    color: var(--p);
+    
+    width: 230px;
+    font-size: 15px;
+}
+
+.popEditBook > .containerForm > label > input:focus{
+    outline: none;
+}
+
+.popEditBook > .containerForm > label > input[type='number']{
+    width: 100px;
+}
+
+.containerBtnsDelSave{
+
+    display: flex;
+    gap: 30px;
+    
+    margin: 30px 0 0 0;
+
+}
+
+.btnPopEdit{
+    width: 40px;
+    height: 40px;
+    background-color: var(--backBtn);
+    border-radius: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    transition: all .2s ease-in-out;
+}
+
+.btnPopEdit:hover{
+    transform: scale(1.1);
+}
+
+.containerImgBook{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    /* right: 30px; */
+    width: 400px;
+    height: 300px;
+
+    border-radius: 5px 5px 0 0;
+
+    background-image: url(./coverMONTE.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+
+    box-shadow: inset 0px -40px 40px 0px rgba(28, 4, 60, 1), inset 0px 300px rgba(0, 0, 0, 0.8);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.imgPreview{
+    width: 120px;
+    height: 200px;
+    background-image: url(./coverMONTE.jpg);
+    background-size: cover;
+
+   
+}
+
+.containerForm{
+    display: flex;
+    flex-direction: column;
+    gap: 30px
+    ;
+}
+
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--backToggle);
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 21px;
+    width: 21px;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    background-color: #744CE5;
+    outline: solid 2px #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: var(--backBtn);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
