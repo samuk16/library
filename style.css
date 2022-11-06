@@ -124,31 +124,47 @@ p{
     transition: all .2s ease-in-out;
 }
 
-.book > .containerPS{
+
+.tbate{
+    background-image: url(./tbat.jpg);
+}
+.player{
+    background-image: url(./player.jpg);
+}
+.notImage{
+    background-image: url(./img/notImage.png);
+}
+
+.book > div{
     display: flex;
     justify-content: space-between;
 }
 
 
-.book > .pTitle{
+.book > p{
     text-align: center;
 }
 
-.book > .containerPS > .pagesNum{
-    width: 30px;
-    height: 20px;
+.book > div > div > p{
+    /* width: 30px; */
+    padding: 3px;
+    height: 25px;
     text-align: center;
     border-radius: 5px;
     background-color: var(--backBtn);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.book > .containerPS > .editBook{
+.book > div > div:nth-child(2){
     transition: all .2s ease-in-out;
     cursor: pointer;
     
 }
 
-.book > .containerPS > .editBook > svg > .pathSvg{
+.book > div > div > svg > path{
     stroke: transparent;
     transition: all .2s ease-in-out;
 }
@@ -157,7 +173,7 @@ p{
     box-shadow: inset 0px -300px 20px 0px rgba(0, 0, 0, 0.6);
 }
 
-.book:hover > .containerPS > .editBook > svg > .pathSvg{
+.book:hover > div > div > svg > path{
     stroke: white;
 }
 
@@ -165,21 +181,29 @@ p{
 
 .popUpCreateBook{
     background-color: var(--backPop);
-
+    /* display: none; */
     position: absolute;
     padding: 30px;
     top: 35%;
     /* left: 50%; */
 
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 30px; */
 
     color: #C4C4C4;
     border-radius: 5px;
 }
 
-.popUpCreateBook > label > input{
+.popUpCreateBook > form{
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+}
+
+.popUpCreateBook > form > label > input{
     background-color: transparent;
     border: none;
     border-bottom: solid 1px #fff;
@@ -189,15 +213,15 @@ p{
     font-size: 15px;
 }
 
-.popUpCreateBook > label > input:focus{
+.popUpCreateBook > form > label > input:focus{
     outline: none;
 }
 
-.popUpCreateBook > label > input[type='number']{
+.popUpCreateBook > form > label > input[type='number']{
     width: 100px;
 }
 
-.btnCreatorPop{
+.popUpCreateBook > form > button[type='submit']{
     width: 40px;
     height: 40px;
     border-radius: 50px;
@@ -219,11 +243,11 @@ p{
     transition: all .2s ease-in-out;
 }
 
-.btnCreatorPop:hover{
+.popUpCreateBook > form > button[type='submit']:hover{
     transform: scale(1.1);
 }
 
-.btnExit{
+.popUpCreateBook > div{
     position: absolute;
     top: 0px;
     right: 0px;
@@ -242,7 +266,7 @@ p{
     /* background-color: var(--backBtnExit); */
 }
 
-.btnExit:hover{
+.popUpCreateBook > div:hover{
     background-color: var(--backBtnExit);
     cursor: pointer;
 }
