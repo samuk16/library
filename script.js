@@ -126,7 +126,74 @@ function popCreatorBook(){
     c(document.forms)
 }
 
+function genBook(obj) {
 
+    let divContainer = document.createElement('div');
+    let containerPS = document.createElement('div');
+    let pTitle = document.createElement('p');
+    let pagesNum = document.createElement('div');
+    let pPages = document.createElement('p');
+    let editBook = document.createElement('div');
+    // let svgEdit = document.createElement('img');
+
+
+    // let pruebaSvg = document.createElement('svg');
+    let pruebaSvg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    let pathSvgEdit = document.createElementNS('http://www.w3.org/2000/svg','path');
+    
+
+
+    let checkUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+
+    divContainer.classList.add('book');
+    // svgEdit.src = './img/svg/dots-horizontal.svg';
+    pTitle.textContent = obj.title;
+    pPages.textContent = obj.pages;
+    divContainer.style.backgroundImage = obj.url.match(checkUrl) ? `url(${obj.url})` : `url(./img/notImage.png)`;
+
+    
+    pruebaSvg.setAttributeNS(null, 'width' , '24')
+    pruebaSvg.setAttributeNS(null, 'height' , '24')
+    pruebaSvg.setAttributeNS(null, 'viewBox' , '0 0 24 24')
+    pruebaSvg.setAttributeNS(null, 'fill' , 'none')
+    pruebaSvg.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns', 'http://www.w3.org/2000/svg')
+    
+    pathSvgEdit.setAttributeNS(null, 'd' , 'M5 12H5.01M12 12H12.01M19 12H19.01M6 12C6 12.5523 5.55228 13 5 13C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11C5.55228 11 6 11.4477 6 12ZM13 12C13 12.5523 12.5523 13 12 13C11.4477 13 11 12.5523 11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12ZM20 12C20 12.5523 19.5523 13 19 13C18.4477 13 18 12.5523 18 12C18 11.4477 18.4477 11 19 11C19.5523 11 20 11.4477 20 12Z')
+    pathSvgEdit.setAttributeNS(null, 'stroke' , 'white')
+    pathSvgEdit.setAttributeNS(null, 'stroke-width' , '2')
+    pathSvgEdit.setAttributeNS(null, 'stroke-linecap' , 'round')
+    pathSvgEdit.setAttributeNS(null, 'stroke-linejoin' , 'round')
+
+
+    containerBooks.appendChild(divContainer);
+    divContainer.appendChild(containerPS);
+    divContainer.appendChild(pTitle);
+    containerPS.appendChild(pagesNum);
+    pagesNum.appendChild(pPages);
+    containerPS.appendChild(editBook);
+    // editBook.appendChild(svgEdit);
+
+    editBook.appendChild(pruebaSvg)
+    pruebaSvg.appendChild(pathSvgEdit)
+    
+
+}
+
+
+function addBookToLibrary(e) {
+    let title = e.target.elements['title'].value;
+    let author = e.target.elements['author'].value;
+    let pages = e.target.elements['pages'].value;
+    let url = e.target.elements['url'].value;
+    let read = e.target.elements['read'].checked;
+
+    let book1 = new book(title,author,pages,url,read);
+    // library.push(book1);
+    // c(book1.url.length)
+    genBook(book1);
+    delForm();
+    e.preventDefault();
+}
 
 function book(title,author,pages,url,read) {
     
