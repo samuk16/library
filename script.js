@@ -7,23 +7,14 @@ let btnCreatorBook = document.querySelector('.btnCreator');
 
 let popUp;
 
-// let popUpEditDel;
-
-// let prueba12;
-
 let index = 0;
-
-// let pruebaArrayDel = [popUp,popUpEditDel];
-
-let btnSubmit2 = document.querySelector('.btnSubmit');
 
 let library = [];
 
 let bookIndex ;
+
 btnCreatorBook.addEventListener('click',popCreatorBook );
 
-// document.body.addEventListener('click', prueba)
-// let prueba14;
 function popCreatorBook(){
 
 
@@ -73,9 +64,15 @@ function popCreatorBook(){
 
 
     containerPopUp.classList.add('popUpCreateBook')
-
+    containerPopUp.classList.add('blur-in-expand')
+    // containerPopUp.classList.add('blur-out-expand')
     btnExit.classList.add('btnExit')
-    btnExit.addEventListener('click', delFormCreator)
+    btnExit.addEventListener('click', () => {
+        containerPopUp.style.animation = 'blur-out-expand 0.15s linear both';
+        setTimeout(() => {delFormCreator()},140)
+        
+
+    })
     svgExit.src = './img/svg/x.svg';
 
     formCreate.addEventListener('submit',addBookToLibrary)
@@ -123,7 +120,7 @@ function popCreatorBook(){
 
     
 
-    c(document.forms);
+    // c(document.forms);
 
     if (document.forms.length > 0) {
         
@@ -200,6 +197,7 @@ function genBook(obj) {
 
     divContainer.classList.add('book');
     divContainer.setAttribute('data-index', obj.index)
+    divContainer.classList.add('blur-in-expand')
     // prueba14 = document.querySelector('.book');
     // c(prueba14)
     pTitle.textContent = obj.title;
@@ -207,11 +205,12 @@ function genBook(obj) {
     divContainer.style.backgroundImage = obj.url.match(checkUrl) ? `url(${obj.url})` : `url(./img/notImage.png)`;
     
     editBook.addEventListener('click', () => {
-        // booktitle = divContainer.textContent;
 
-        // library.forEach(el => c(el.title))
         bookIndex = divContainer.getAttribute('data-index')
+        // c(bookIndex)
         // c(library[bookIndex])
+        // divContainer.style.animation = 'blur-out-expand 0.15s linear both';
+        // setTimeout(() => {delFormCreator()},140)
         genPopUpEditBook(library[bookIndex]);
         // popUpEdit();
     });
@@ -337,30 +336,23 @@ function genPopUpEditBook(obj) {
     let containerBtnsDelSave = document.createElement('div');
     let btnDel = document.createElement('div');
     let svgDel = document.createElement('img');
-    // let pathSvgDel = document.createElementNS('http://www.w3.org/2000/svg','path');
-    let btnSave = document.createElement('div');
+    let btnSave = document.createElement('button');
     let svgSave = document.createElement('img');
-    // let pathSvgSave1 = document.createElementNS('http://www.w3.org/2000/svg','path');
-    // let pathSvgSave2 = document.createElementNS('http://www.w3.org/2000/svg','path');
-    
-
-
-    
-    
-
     
     
     let checkUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
     containerPopEditBook.classList.add('popEditBook');
-    // containerPopEditBook.classList.add('pop');
-    // containerPopEditBook.setAttribute('data-indexDel', 1)
-    popUpEditDel = document.querySelector('.popEditBook');
+    containerPopEditBook.classList.add('blur-in-expand')
+    
     
     containerImgEditBook.style.backgroundImage = obj.url.match(checkUrl) ? `url(${obj.url})` : `url(./img/notImage.png)` ;
     imgPreview.style.backgroundImage = obj.url.match(checkUrl) ? `url(${obj.url})` : `url(./img/notImage.png)`;
-    // imgPreview.style.backgroundImage = `url(./img/notImage.png)`;
 
-    btnExit.addEventListener('click', delFormEdit);
+    btnExit.addEventListener('click', () => {
+        containerPopEditBook.style.animation = 'blur-out-expand 0.15s linear both';
+        setTimeout(() => {delFormEdit()},140)
+        
+    });
     btnExit.classList.add('btnExit')
     svgExit.src = './img/svg/x.svg';
     
@@ -368,30 +360,57 @@ function genPopUpEditBook(obj) {
     pLabelTitle.textContent = 'Title';
     inputLabelTitle.type = 'text';
     inputLabelTitle.name = 'title';
+    inputLabelTitle.value = obj.title;
 
     pLabelAuthor.textContent = 'Author';
     inputLabelAuthor.type = 'text';
     inputLabelAuthor.name = 'author';
+    inputLabelAuthor.value = obj.author;
 
     pLabelPages.textContent = 'Pages';
     inputLabelPages.type = 'number';
     inputLabelPages.name = 'pages';
+    inputLabelPages.value = obj.pages;
 
     pLabelUrl.textContent = 'URL of image book';
     inputLabelUrl.type = 'text';
     inputLabelUrl.name = 'url';
     inputLabelUrl.placeholder = 'https://www.example.com';
+    inputLabelUrl.value = obj.url;
 
     pRead.textContent = 'Have you read it?';
     labelcheckbox.classList.add('switch');
     inputLabeSwitch.type = 'checkbox';
+    inputLabeSwitch.name = 'read';
+    inputLabeSwitch.checked = obj.read;
     spanSwitch.classList.add('slider');
     spanSwitch.classList.add('round');
 
     svgDel.src = './img/svg/trash.svg';
+    btnDel.addEventListener('click', () => {
+        
+        delBook();
+        delFormEdit();
+    })
 
+    btnSave.type = 'submit';
     svgSave.src = './img/svg/save.svg';
 
+    btnSave.addEventListener("click", delBook)
+
+    containerFormEdit.addEventListener('submit', e => {
+        obj.title = e.target.elements['title'].value;
+        obj.author = e.target.elements['author'].value;
+        obj.pages = e.target.elements['pages'].value;
+        obj.url = e.target.elements['url'].value;
+        obj.read = e.target.elements['read'].checked;
+        c(e.target.elements['read'].checked);
+        // delBook();
+        setTimeout(() => {genBook(obj)},150) 
+        delFormEdit();
+        // c(obj.title)
+        e.preventDefault();
+    })
     
     if (document.forms.length > 0) {
         
@@ -442,7 +461,7 @@ function genPopUpEditBook(obj) {
     
         labelcheckbox.appendChild(spanSwitch);
     
-        containerPopEditBook.appendChild(containerBtnsDelSave);
+        containerFormEdit.appendChild(containerBtnsDelSave);
     
         containerBtnsDelSave.appendChild(btnDel);
     
@@ -454,32 +473,10 @@ function genPopUpEditBook(obj) {
     
     }
 
+    
 
 }
 
-// function popUpEdit() {
-//     let indexbook = library.forEach(el => {
-//         if(el.title == booktitle){
-//             return el.target
-//         }
-//     } )
-    
-//     c(indexbook)
-//     // c(this.textContent)
-//     // c('hola')
-// }
-
-// let objPrueba = {
-//     'width' : '20' ,
-//     'height': '20' ,
-//     'viewBox': '0 0 20 20' ,
-//     'fill': 'none' ,
-//     'xmlns': 'http://www.w3.org/2000/svg' ,
-// };
-
-// function pruebaCreate(innerHtml,attibutes) {
-    
-// }
 
 function addBookToLibrary(e) {
     let title = e.target.elements['title'].value;
@@ -509,30 +506,31 @@ function book(title,author,pages,url,read,index) {
     this.index = index;
 }
 
-// book.prototype.editBook = function (e) {
-//     this.title;
-// };
-
 function delFormCreator() {
     const popUp = document.querySelector('.popUpCreateBook');
-    c(popUp)
+   
    document.body.removeChild(popUp)
-    // c('hola')
-    // popUp.addEventListener('click',c('hola'))
 }
 
 function delFormEdit() {
     const popUpEditDel= document.querySelector('.popEditBook');
-    c(popUpEditDel)
+    
     document.body.removeChild(popUpEditDel)
     
+    
+}
+// buscar como eliminar o cambiar un book
+function delBook() {
+
+    for (let i = 0; i <= containerBooks.children.length; i++) {
+        let test6 = containerBooks.children[i];
+        // c(test6.getAttribute('data-index'))
+        if (test6.getAttribute('data-index') == bookIndex) {
+            test6.style.animation = 'blur-out-expand 0.15s linear both';
+            setTimeout(() => {containerBooks.removeChild(test6);},140)
+            break;
+        }
+    }   
 }
 
 
-
-
-// if (containerBooks.className ==  'containerBooks') {
-//    c(true) 
-// }else{
-//     c(false)
-// }
