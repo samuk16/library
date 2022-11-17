@@ -13,6 +13,9 @@ let library = [];
 
 let bookIndex ;
 
+let constrain = 80;
+let testRotate = document.querySelector('.rote');
+
 btnCreatorBook.addEventListener('click',popCreatorBook );
 
 function popCreatorBook(){
@@ -120,7 +123,7 @@ function popCreatorBook(){
 
     
 
-    // c(document.forms);
+    
 
     if (document.forms.length > 0) {
         
@@ -198,8 +201,7 @@ function genBook(obj) {
     divContainer.classList.add('book');
     divContainer.setAttribute('data-index', obj.index)
     divContainer.classList.add('blur-in-expand')
-    // prueba14 = document.querySelector('.book');
-    // c(prueba14)
+    
     pTitle.textContent = obj.title;
     pPages.textContent = obj.pages;
     divContainer.style.backgroundImage = obj.url.match(checkUrl) ? `url(${obj.url})` : `url(./img/notImage.png)`;
@@ -207,15 +209,22 @@ function genBook(obj) {
     editBook.addEventListener('click', () => {
 
         bookIndex = divContainer.getAttribute('data-index')
-        // c(bookIndex)
-        // c(library[bookIndex])
-        // divContainer.style.animation = 'blur-out-expand 0.15s linear both';
-        // setTimeout(() => {delFormCreator()},140)
+        
         genPopUpEditBook(library[bookIndex]);
-        // popUpEdit();
+
+        let imgRotate = document.querySelector('.rotate');
+        document.body.onmousemove = function(e) {
+            let xy = [e.clientX, e.clientY];
+            let position = xy.concat([imgRotate]);
+          
+            window.requestAnimationFrame(function(){
+              transformElement(imgRotate, position);
+            });
+        };
+       
     });
 
-    // pTitle.addEventListener('click', popUpEdit)
+    
 
     svgEdit.setAttributeNS(null, 'width' , '24')
     svgEdit.setAttributeNS(null, 'height' , '24')
@@ -229,12 +238,6 @@ function genBook(obj) {
     pathSvgEdit.setAttributeNS(null, 'stroke-width' , '2')
     pathSvgEdit.setAttributeNS(null, 'stroke-linecap' , 'round')
     pathSvgEdit.setAttributeNS(null, 'stroke-linejoin' , 'round')
-
-    // <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    //     <path d="M10.0003 12C11.1048 12 12.0003 11.1046 12.0003 10C12.0003 8.89543 11.1048 8 10.0003 8C8.89568 8 8.00025 8.89543 8.00025 10C8.00025 11.1046 8.89568 12 10.0003 12Z" fill="white"/>
-    //     <path fill-rule="evenodd" clip-rule="evenodd" d="M0.458008 10C1.73226 5.94291 5.52256 3 10.0002 3C14.4778 3 18.2681 5.94288 19.5424 9.99996C18.2682 14.0571 14.4778 17 10.0002 17C5.52257 17 1.73228 14.0571 0.458008 10ZM14.0003 10C14.0003 12.2091 12.2094 14 10.0003 14C7.79111 14 6.00025 12.2091 6.00025 10C6.00025 7.79086 7.79111 6 10.0003 6C12.2094 6 14.0003 7.79086 14.0003 10Z" fill="white"/>
-    // </svg>
-
     
 
     svgRead.setAttributeNS(null, 'width' , '20');
@@ -253,12 +256,6 @@ function genBook(obj) {
     pathRead2.setAttributeNS(null,'d','M0.458008 10C1.73226 5.94291 5.52256 3 10.0002 3C14.4778 3 18.2681 5.94288 19.5424 9.99996C18.2682 14.0571 14.4778 17 10.0002 17C5.52257 17 1.73228 14.0571 0.458008 10ZM14.0003 10C14.0003 12.2091 12.2094 14 10.0003 14C7.79111 14 6.00025 12.2091 6.00025 10C6.00025 7.79086 7.79111 6 10.0003 6C12.2094 6 14.0003 7.79086 14.0003 10Z');
     pathRead2.setAttributeNS(null,'fill','white');
 
-
-    // <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    //     <path d="M10.0003 12C11.1048 12 12.0003 11.1046 12.0003 10C12.0003 8.89543 11.1048 8 10.0003 8C8.89568 8 8.00025 8.89543 8.00025 10C8.00025 11.1046 8.89568 12 10.0003 12Z" fill="white"/>
-    //     <path fill-rule="evenodd" clip-rule="evenodd" d="M0.458008 10C1.73226 5.94291 5.52256 3 10.0002 3C14.4778 3 18.2681 5.94288 19.5424 9.99996C18.2682 14.0571 14.4778 17 10.0002 17C5.52257 17 1.73228 14.0571 0.458008 10ZM14.0003 10C14.0003 12.2091 12.2094 14 10.0003 14C7.79111 14 6.00025 12.2091 6.00025 10C6.00025 7.79086 7.79111 6 10.0003 6C12.2094 6 14.0003 7.79086 14.0003 10Z" fill="white"/>
-    //     <line x1="3.87034" y1="16.7091" x2="15.8826" y2="3.12966" stroke="white" stroke-width="3" stroke-linecap="round"/>
-    // </svg>
 
     svgNotRead.setAttributeNS(null, 'width' , '20');
     svgNotRead.setAttributeNS(null, 'height' , '20');
@@ -347,6 +344,7 @@ function genPopUpEditBook(obj) {
     
     containerImgEditBook.style.backgroundImage = obj.url.match(checkUrl) ? `url(${obj.url})` : `url(./img/notImage.png)` ;
     imgPreview.style.backgroundImage = obj.url.match(checkUrl) ? `url(${obj.url})` : `url(./img/notImage.png)`;
+    imgPreview.classList.add('rotate')
 
     btnExit.addEventListener('click', () => {
         containerPopEditBook.style.animation = 'blur-out-expand 0.15s linear both';
@@ -387,16 +385,22 @@ function genPopUpEditBook(obj) {
     spanSwitch.classList.add('round');
 
     svgDel.src = './img/svg/trash.svg';
+
     btnDel.addEventListener('click', () => {
+
+        const book = document.querySelector(`[data-index="${obj.index}"]`);
+
+        book.style.animation = 'blur-out-expand 0.15s linear both';
+
+        setTimeout(() => {book.remove()},140)
         
-        delBook();
         delFormEdit();
     })
 
     btnSave.type = 'submit';
     svgSave.src = './img/svg/save.svg';
 
-    btnSave.addEventListener("click", delBook)
+    // btnSave.addEventListener("click", editBook)
 
     containerFormEdit.addEventListener('submit', e => {
         obj.title = e.target.elements['title'].value;
@@ -404,11 +408,10 @@ function genPopUpEditBook(obj) {
         obj.pages = e.target.elements['pages'].value;
         obj.url = e.target.elements['url'].value;
         obj.read = e.target.elements['read'].checked;
-        c(e.target.elements['read'].checked);
-        // delBook();
-        setTimeout(() => {genBook(obj)},150) 
+        editBook()
+        // setTimeout(() => {genBook(obj)},150) 
         delFormEdit();
-        // c(obj.title)
+        
         e.preventDefault();
     })
     
@@ -477,6 +480,160 @@ function genPopUpEditBook(obj) {
 
 }
 
+function fillBook(refDom,obj) {
+    // c('work')
+    let containerPS = document.createElement('div');
+
+    let pTitle = document.createElement('p')
+
+    let pagesNum = document.createElement('div');
+
+    let pPages = document.createElement('p');
+
+    let editBook = document.createElement('div');
+
+    let svgEdit = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    let pathSvgEdit = document.createElementNS('http://www.w3.org/2000/svg','path');
+
+    let containerSvgRNR = document.createElement('div');
+    let svgRead = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    let pathRead1 = document.createElementNS('http://www.w3.org/2000/svg','path');
+    let pathRead2 = document.createElementNS('http://www.w3.org/2000/svg','path');
+    
+    let svgNotRead = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    let pathNotRead1 = document.createElementNS('http://www.w3.org/2000/svg','path');
+    let pathNotRead2 = document.createElementNS('http://www.w3.org/2000/svg','path');
+    let lineNotRead = document.createElementNS('http://www.w3.org/2000/svg','line');
+
+    let checkUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+
+    refDom.classList.add('book');
+    refDom.setAttribute('data-index', obj.index)
+    refDom.classList.add('blur-in-expand')
+    
+    pTitle.textContent = obj.title;
+    pPages.textContent = obj.pages;
+    refDom.style.backgroundImage = obj.url.match(checkUrl) ? `url(${obj.url})` : `url(./img/notImage.png)`;
+    
+    editBook.addEventListener('click', () => {
+
+        bookIndex = refDom.getAttribute('data-index')
+        
+        genPopUpEditBook(library[bookIndex]);
+       
+    });
+
+    svgEdit.setAttributeNS(null, 'width' , '24')
+    svgEdit.setAttributeNS(null, 'height' , '24')
+    svgEdit.setAttributeNS(null, 'viewBox' , '0 0 24 24')
+    svgEdit.setAttributeNS(null, 'fill' , 'none')
+    svgEdit.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns', 'http://www.w3.org/2000/svg')
+    
+    pathSvgEdit.classList.add('pathSvg');
+    pathSvgEdit.setAttributeNS(null, 'd' , 'M5 12H5.01M12 12H12.01M19 12H19.01M6 12C6 12.5523 5.55228 13 5 13C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11C5.55228 11 6 11.4477 6 12ZM13 12C13 12.5523 12.5523 13 12 13C11.4477 13 11 12.5523 11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12ZM20 12C20 12.5523 19.5523 13 19 13C18.4477 13 18 12.5523 18 12C18 11.4477 18.4477 11 19 11C19.5523 11 20 11.4477 20 12Z')
+    pathSvgEdit.setAttributeNS(null, 'stroke' , 'white')
+    pathSvgEdit.setAttributeNS(null, 'stroke-width' , '2')
+    pathSvgEdit.setAttributeNS(null, 'stroke-linecap' , 'round')
+    pathSvgEdit.setAttributeNS(null, 'stroke-linejoin' , 'round')
+    
+
+    svgRead.setAttributeNS(null, 'width' , '20');
+    svgRead.setAttributeNS(null, 'height' , '20');
+    svgRead.setAttributeNS(null, 'viewBox' , '0 0 20 20');
+    svgRead.setAttributeNS(null, 'fill' , 'none');
+    svgRead.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns', 'http://www.w3.org/2000/svg'); 
+    
+    pathRead1.classList.add('pathRead')
+    pathRead1.setAttributeNS(null, 'd' , 'M10.0003 12C11.1048 12 12.0003 11.1046 12.0003 10C12.0003 8.89543 11.1048 8 10.0003 8C8.89568 8 8.00025 8.89543 8.00025 10C8.00025 11.1046 8.89568 12 10.0003 12Z')
+    pathRead1.setAttributeNS(null, 'fill' , 'white')
+    
+    pathRead2.classList.add('pathRead')
+    pathRead2.setAttributeNS(null,'fill-rule','evenodd');
+    pathRead2.setAttributeNS(null,'clip-rule','evenodd');
+    pathRead2.setAttributeNS(null,'d','M0.458008 10C1.73226 5.94291 5.52256 3 10.0002 3C14.4778 3 18.2681 5.94288 19.5424 9.99996C18.2682 14.0571 14.4778 17 10.0002 17C5.52257 17 1.73228 14.0571 0.458008 10ZM14.0003 10C14.0003 12.2091 12.2094 14 10.0003 14C7.79111 14 6.00025 12.2091 6.00025 10C6.00025 7.79086 7.79111 6 10.0003 6C12.2094 6 14.0003 7.79086 14.0003 10Z');
+    pathRead2.setAttributeNS(null,'fill','white');
+
+
+    svgNotRead.setAttributeNS(null, 'width' , '20');
+    svgNotRead.setAttributeNS(null, 'height' , '20');
+    svgNotRead.setAttributeNS(null, 'viewBox' , '0 0 20 20');
+    svgNotRead.setAttributeNS(null, 'fill' , 'none');
+    svgNotRead.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns', 'http://www.w3.org/2000/svg'); 
+
+    pathNotRead1.classList.add('pathRead')
+    pathNotRead1.setAttributeNS(null, 'd' , 'M10.0003 12C11.1048 12 12.0003 11.1046 12.0003 10C12.0003 8.89543 11.1048 8 10.0003 8C8.89568 8 8.00025 8.89543 8.00025 10C8.00025 11.1046 8.89568 12 10.0003 12Z')
+    pathNotRead1.setAttributeNS(null, 'fill' , 'white')
+
+    pathNotRead2.classList.add('pathRead')
+    pathNotRead2.setAttributeNS(null,'fill-rule','evenodd');
+    pathNotRead2.setAttributeNS(null,'clip-rule','evenodd');
+    pathNotRead2.setAttributeNS(null,'d','M0.458008 10C1.73226 5.94291 5.52256 3 10.0002 3C14.4778 3 18.2681 5.94288 19.5424 9.99996C18.2682 14.0571 14.4778 17 10.0002 17C5.52257 17 1.73228 14.0571 0.458008 10ZM14.0003 10C14.0003 12.2091 12.2094 14 10.0003 14C7.79111 14 6.00025 12.2091 6.00025 10C6.00025 7.79086 7.79111 6 10.0003 6C12.2094 6 14.0003 7.79086 14.0003 10Z');
+    pathNotRead2.setAttributeNS(null,'fill','white');
+
+    lineNotRead.setAttributeNS(null, 'x1' , '3.87034')
+    lineNotRead.setAttributeNS(null, 'y1' , '16.7091')
+    lineNotRead.setAttributeNS(null, 'x2' , '15.8826')
+    lineNotRead.setAttributeNS(null, 'y2' , '3.12966')
+    lineNotRead.setAttributeNS(null, 'stroke' , 'white')
+    lineNotRead.setAttributeNS(null, 'stroke-width' , '3')
+    lineNotRead.setAttributeNS(null, 'stroke-linecap' , 'round')
+
+    pTitle.textContent = obj.title;
+
+    pPages.textContent = obj.pages;
+
+    editBook.addEventListener('click', () => {
+
+        bookIndex = refDom.getAttribute('data-index')
+        
+        genPopUpEditBook(library[bookIndex]);
+       
+    });
+
+    refDom.appendChild(containerPS);
+    refDom.appendChild(pTitle);
+
+    containerPS.appendChild(pagesNum);
+    pagesNum.appendChild(pPages);
+    containerPS.appendChild(editBook);
+    editBook.appendChild(svgEdit)
+    svgEdit.appendChild(pathSvgEdit)
+    pagesNum.appendChild(containerSvgRNR);
+
+    if (obj.read) {
+        containerSvgRNR.appendChild(svgRead);
+        svgRead.appendChild(pathRead1);
+        svgRead.appendChild(pathRead2);
+    } else {
+        containerSvgRNR.appendChild(svgNotRead);
+        svgNotRead.appendChild(pathNotRead1);
+        svgNotRead.appendChild(pathNotRead2);
+        svgNotRead.appendChild(lineNotRead);
+    }
+    
+}
+
+function editBook() {
+
+    library.forEach((book) => {
+        if (book.index == bookIndex) {
+            
+            const bookDom = document.querySelector(`[data-index="${book.index}"]`);
+            
+            bookDom.style.animation = 'blur-in 0.2s linear both';
+            
+            setTimeout(() => {
+                bookDom.innerHTML=''
+                fillBook(bookDom,book);
+                bookDom.style.animation = '';
+                bookDom.classList.remove('blur-in-expand')
+            },150)
+            
+        }
+
+    })
+
+}
 
 function addBookToLibrary(e) {
     let title = e.target.elements['title'].value;
@@ -519,18 +676,48 @@ function delFormEdit() {
     
     
 }
-// buscar como eliminar o cambiar un book
-function delBook() {
 
-    for (let i = 0; i <= containerBooks.children.length; i++) {
-        let test6 = containerBooks.children[i];
-        // c(test6.getAttribute('data-index'))
-        if (test6.getAttribute('data-index') == bookIndex) {
-            test6.style.animation = 'blur-out-expand 0.15s linear both';
-            setTimeout(() => {containerBooks.removeChild(test6);},140)
-            break;
-        }
-    }   
+function transforms(x, y, el) {
+    let box = el.getBoundingClientRect();
+    let calcX = -(y - box.y - (box.height / 2)) / constrain;
+    let calcY = (x - box.x - (box.width / 2)) / constrain;
+    
+    return "perspective(100px) "
+      + "   rotateX("+ calcX +"deg) "
+      + "   rotateY("+ calcY +"deg) ";
+};
+
+  function transformElement(el, xyEl) {
+    el.style.transform  = transforms.apply(null, xyEl);
 }
+  
+  
 
+// function createElDom(elementType,attributes,innerHTML,innerText,appendChild) {
+    
+//     if(elementType){
+//         let element = document.createElement(elementType);
+  
+//         if (attributes) {
+//               Object.keys(attributes).forEach(key => { element.setAttribute(`${key}`, attributes[key]) }) ;
+//         }
 
+//         if (innerHTML) {
+//             element.innerHTML= innerHTML;
+
+//         }    
+//         if (innerText) {
+//             element.innerText = innerText;
+
+//         }
+//         if(appendChild) {
+//             appendChild.appendChild(element);
+            
+//         } 
+
+//         return element;
+//     }
+    
+// }
+
+// createElDom('div',{'data-id':'1',class:'nashe'},null,null,document.body)
