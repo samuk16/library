@@ -14,7 +14,6 @@ let library = [];
 let bookIndex ;
 
 let constrain = 80;
-let testRotate = document.querySelector('.rote');
 
 btnCreatorBook.addEventListener('click',popCreatorBook );
 
@@ -95,7 +94,9 @@ function popCreatorBook(){
     
     input3.type = 'number';
     input3.name = 'pages'
-
+    input3.min = '1'
+    input3.max = '100000'
+    
     pTitle4.textContent = 'URL of image book';
     
     input4.type = 'text';
@@ -481,7 +482,7 @@ function genPopUpEditBook(obj) {
 }
 
 function fillBook(refDom,obj) {
-    // c('work')
+    
     let containerPS = document.createElement('div');
 
     let pTitle = document.createElement('p')
@@ -518,9 +519,19 @@ function fillBook(refDom,obj) {
     editBook.addEventListener('click', () => {
 
         bookIndex = refDom.getAttribute('data-index')
-        
+
         genPopUpEditBook(library[bookIndex]);
-       
+
+        let imgRotate = document.querySelector('.rotate');
+        document.body.onmousemove = function(e) {
+            let xy = [e.clientX, e.clientY];
+            let position = xy.concat([imgRotate]);
+          
+            window.requestAnimationFrame(function(){
+              transformElement(imgRotate, position);
+            });
+        };
+        
     });
 
     svgEdit.setAttributeNS(null, 'width' , '24')
@@ -581,14 +592,6 @@ function fillBook(refDom,obj) {
     pTitle.textContent = obj.title;
 
     pPages.textContent = obj.pages;
-
-    editBook.addEventListener('click', () => {
-
-        bookIndex = refDom.getAttribute('data-index')
-        
-        genPopUpEditBook(library[bookIndex]);
-       
-    });
 
     refDom.appendChild(containerPS);
     refDom.appendChild(pTitle);
@@ -693,31 +696,3 @@ function transforms(x, y, el) {
   
   
 
-// function createElDom(elementType,attributes,innerHTML,innerText,appendChild) {
-    
-//     if(elementType){
-//         let element = document.createElement(elementType);
-  
-//         if (attributes) {
-//               Object.keys(attributes).forEach(key => { element.setAttribute(`${key}`, attributes[key]) }) ;
-//         }
-
-//         if (innerHTML) {
-//             element.innerHTML= innerHTML;
-
-//         }    
-//         if (innerText) {
-//             element.innerText = innerText;
-
-//         }
-//         if(appendChild) {
-//             appendChild.appendChild(element);
-            
-//         } 
-
-//         return element;
-//     }
-    
-// }
-
-// createElDom('div',{'data-id':'1',class:'nashe'},null,null,document.body)
