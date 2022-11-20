@@ -407,6 +407,7 @@ function genPopUpEditBook(obj) {
     })
 
     btnSave.type = 'submit';
+    btnSave.title = 'Save';
     svgSave.src = './img/svg/save.svg';
 
     // btnSave.addEventListener("click", editBook)
