@@ -654,14 +654,16 @@ p{
 
 @media screen and (max-width: 500px){
     .popUpCreateBook{
-        top: 30%;
+        top: 15%;
+        position: fixed;
     }
     .popEditBook{
         width: 70%;
         top: 10%;
+        position: fixed;
     }
     .popEditBook > div:nth-child(1){
-        width: 130%;
+        width: 126%;
         height: 200px;
         gap: 10px;
         top: -30px;
@@ -672,5 +674,9 @@ p{
     }
     .popEditBook > div:nth-child(2){
         top: 0px;
+    }
+
+    .popEditBook > form {
+        gap: 15px;
     }
 }
