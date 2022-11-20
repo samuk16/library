@@ -225,7 +225,7 @@ function genBook(obj) {
         };
 
         window.addEventListener("deviceorientation", (e) => {
-            let testX = e.beta - 90;
+            let testX = e.beta - 40;
             imgRotate.style.transform = `perspective(150px) rotateX(${-testX}deg) rotateY(${
               e.gamma
             }deg)`;
@@ -541,7 +541,7 @@ function fillBook(refDom,obj) {
         };
 
         window.addEventListener("deviceorientation", (e) => {
-            let testX = e.beta - 90;
+            let testX = e.beta - 40;
             imgRotate.style.transform = `perspective(150px) rotateX(${-testX}deg) rotateY(${
               e.gamma
             }deg)`;
