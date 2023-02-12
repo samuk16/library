@@ -1,6 +1,3 @@
-
-const c = function(e){console.log(e)};
-
 let containerBooks = document.querySelector('.containerBooks');
 
 let btnCreatorBook = document.querySelector('.btnCreator');
@@ -67,7 +64,7 @@ function popCreatorBook(){
 
     containerPopUp.classList.add('popUpCreateBook')
     containerPopUp.classList.add('blur-in-expand')
-    // containerPopUp.classList.add('blur-out-expand')
+
     btnExit.classList.add('btnExit')
     btnExit.addEventListener('click', () => {
         containerPopUp.style.animation = 'blur-out-expand 0.15s linear both';
@@ -300,7 +297,7 @@ function genBook(obj) {
     editBook.appendChild(svgEdit)
     svgEdit.appendChild(pathSvgEdit)
     pagesNum.appendChild(containerSvgRNR);
-    // containerSvgRNR.appendChild(obj.read ? )
+
     if (obj.read) {
         containerSvgRNR.appendChild(svgRead);
         svgRead.appendChild(pathRead1);
@@ -410,8 +407,6 @@ function genPopUpEditBook(obj) {
     btnSave.title = 'Save';
     svgSave.src = './img/svg/save.svg';
 
-    // btnSave.addEventListener("click", editBook)
-
     containerFormEdit.addEventListener('submit', e => {
         obj.title = e.target.elements['title'].value;
         obj.author = e.target.elements['author'].value;
@@ -419,7 +414,6 @@ function genPopUpEditBook(obj) {
         obj.url = e.target.elements['url'].value;
         obj.read = e.target.elements['read'].checked;
         editBook()
-        // setTimeout(() => {genBook(obj)},150) 
         delFormEdit();
         
         e.preventDefault();
@@ -661,25 +655,25 @@ function addBookToLibrary(e) {
     let url = e.target.elements['url'].value;
     let read = e.target.elements['read'].checked;
     
-    let book1 = new book(title,author,pages,url,read,index);
+    let book1 = new Book(title,author,pages,url,read,index);
+    
     library.push(book1);
-    // c(book1.url.length)
     genBook(book1);
     index++;
-    // c(library)
-    // library.forEach(el => c(el.title));
     delFormCreator();
     e.preventDefault();
 }
+class Book {
 
-function book(title,author,pages,url,read,index) {
-    
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.url = url;
-    this.read = read;   
-    this.index = index;
+    constructor(title,author,pages,url,read,index){
+
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.url = url;
+        this.read = read;   
+        this.index = index;
+    }
 }
 
 function delFormCreator() {
