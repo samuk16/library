@@ -81,11 +81,15 @@ function popCreatorBook(){
     input1.type = 'text';
     input1.name = 'title';
     input1.classList.add('titleBook')
+    input1.setAttribute('required','');
+
 
     pTitle2.textContent = 'Author';
     
     input2.type = 'text';
     input2.name = 'author'
+    input2.setAttribute('required','');
+
 
     pTitle3.textContent = 'Pages';
     
@@ -93,12 +97,16 @@ function popCreatorBook(){
     input3.name = 'pages'
     input3.min = '1'
     input3.max = '100000'
+    input3.setAttribute('required','');
+
     
     pTitle4.textContent = 'URL of image book';
     
     input4.type = 'text';
     input4.name = 'url'
     input4.placeholder = 'https://www.example.com';
+    input4.setAttribute('required','');
+
 
     pTitle5.textContent = 'Have you read it?';
 
